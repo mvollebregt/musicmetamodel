@@ -1,0 +1,25 @@
+
+# idea files
+*.ipr
+*.iml
+*.iws
+.idea
+
+# eclipse files
+.metadata
+.classpath
+.project
+.settings
+
+# build output
+build
+out
+target
+
+# gradle files
+.gradle
+
+# file types
+*.swp
+*.log
+.DS_Store

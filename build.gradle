@@ -1,0 +1,18 @@
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+defaultTasks 'build'
+
+group = 'com.github.mvollebregt.musicmatamodel'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    groovy 'org.codehaus.groovy:groovy:1.7.10'
+    testCompile 'org.spockframework:spock-core:0.4-groovy-1.7'
+}
+
