@@ -38,15 +38,15 @@ public class MusicMetaHandler<T> extends DefaultHandler {
     @Override
     public void startElement(String uri, String name, String qname, Attributes attributes) throws SAXException {
         if ("artist".equals(qname)) {
-            pushOnStack(new ArtistBuilder());
+            pushOnStack(new ArtistBuilder(), attributes);
         } else if ("album".equals(qname)) {
-            pushOnStack(new AlbumBuilder());
+            pushOnStack(new AlbumBuilder(), attributes);
         } else if (objectBuilderStack.empty()) {
-            pushOnStack(new ListBuilder(qname));
+            pushOnStack(new ListBuilder(qname), attributes);
         }
         characterBuffer = new StringBuilder();
     }
-
+    
     @SuppressWarnings({"unchecked"})
     @Override
     public void endElement(String uri, String name, String qname) throws SAXException {
@@ -71,8 +71,11 @@ public class MusicMetaHandler<T> extends DefaultHandler {
         characterBuffer.append(ch, start, length);
     }
 
-    private void pushOnStack(ObjectBuilder handler) {
+    private void pushOnStack(ObjectBuilder handler, Attributes attributes) {
         objectBuilderStack.push(handler);
+        for (int i = 0; i < attributes.getLength(); i++) {
+            handler.setProperty(attributes.getQName(i), attributes.getValue(i));
+        }
         currentElementHasChildren = false;
     }
 }

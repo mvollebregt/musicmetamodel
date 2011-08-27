@@ -38,7 +38,9 @@ public class AlbumBuilder extends DefaultHandler implements ObjectBuilder<Album>
 
     @Override
     public void setProperty(String qname, String value) {
-        if ("name".equals(qname)) {
+        if ("href".equals(qname)) {
+            album.setId(value);
+        } else if ("name".equals(qname)) {
             album.setName(value);
         }
     }

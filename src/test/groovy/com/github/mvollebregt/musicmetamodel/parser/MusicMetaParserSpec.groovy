@@ -24,7 +24,7 @@ import spock.lang.Specification
  *
  * @author Michel Vollebregt
  */
-class LastFMParserSpec extends Specification {
+class MusicMetaParserSpec extends Specification {
 
     def parser = new com.github.mvollebregt.musicmetamodel.parser.MusicMetaParser();
 
@@ -91,6 +91,17 @@ class LastFMParserSpec extends Specification {
             parser.parse(stream(xml));
         then:
             notThrown(NullPointerException)
+    }
+
+    def "parsing an xml attribute should set a property"() {
+        given:
+            def xml = """<artist href="spotify:artist:7jy3rLJdDQY21OgRLCZ9sD">
+                            <name>Foo Fighters</name>
+                         </artist>"""
+        when:
+            def artist = parser.parse(stream(xml));
+        then:
+            assert match(new Artist(id: "spotify:artist:7jy3rLJdDQY21OgRLCZ9sD", name: "Foo Fighters"), artist);
     }
 
     private static match(Collection expectedList, Collection observedList) {

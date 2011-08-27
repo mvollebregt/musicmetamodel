@@ -37,7 +37,9 @@ public class ArtistBuilder extends DefaultHandler implements ObjectBuilder<Artis
 
     @Override
     public void setProperty(String qname, String value) {
-        if ("name".equals(qname)) {
+        if ("href".equals(qname)) {
+            artist.setId(value);
+        } else if ("name".equals(qname)) {
             artist.setName(value);
         }
     }
